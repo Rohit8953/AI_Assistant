@@ -7,6 +7,10 @@ import WriteArticle from './pages/Dashboard/WriteArticle'
 import ReviewResume from './pages/Dashboard/ReviewResume'
 import RemoveObject from './pages/Dashboard/RemoveObject'
 import RemoveBackground from './pages/Dashboard/RemoveBackground'
+import Home from './pages/Home.jsx'
+import Layout from './pages/Layout.jsx'
+import GenerateImages from './pages/Dashboard/GenerateImages.jsx'
+import Community from './pages/Dashboard/Community.jsx'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -14,15 +18,16 @@ function App() {
   return (
     <div>
       <Routes>
-         <Route path="/" element={<div>Home Page</div>} />
-         <Route path='ai' element={<Layout />}>
+         <Route path="/" element={<Home />} />
+         <Route path='/ai' element={<Layout />}>
             <Route index element={<Dashboard />} />
             <Route path="blog-titles" element={<BlogTitle />} />
             <Route path="write-article" element={<WriteArticle />} />
+            <Route path="generate-images" element={<GenerateImages />} />
             <Route path="remove-background" element={<RemoveBackground />} />
             <Route path="remove-object" element={<RemoveObject />} />
             <Route path="review-resume" element={<ReviewResume />} />
-              
+            <Route path="community" element={<Community />} />
          </Route>
       </Routes>
     </div>

@@ -9,7 +9,7 @@ import { SquarePen, Hash, Image, Eraser, Scissors, FileText } from 'lucide-react
 import ai_gen_img_1 from "./ai_gen_img_1.png";
 import ai_gen_img_2 from "./ai_gen_img_2.png";
 import ai_gen_img_3 from "./ai_gen_img_3.png";
-
+ 
 export const assets = {
     logo,
     gradientBackground,
@@ -89,7 +89,6 @@ export const dummyTestimonialData = [
     },
 ]
 
-
 export const dummyCreationData = [
     {
         "id": 9,
@@ -125,7 +124,6 @@ export const dummyCreationData = [
         "updated_at": "2025-07-01T11:07:51.312Z"
     }
 ]
-
 
 export const dummyPublishedCreationData = [
     {
