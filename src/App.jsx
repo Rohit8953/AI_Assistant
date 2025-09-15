@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import { Route, Routes } from 'react-router-dom'
 import Dashboard from './pages/Dashboard/Dashboard'
@@ -11,12 +11,14 @@ import Home from './pages/Home.jsx'
 import Layout from './pages/Layout.jsx'
 import GenerateImages from './pages/Dashboard/GenerateImages.jsx'
 import Community from './pages/Dashboard/Community.jsx'
+import {Toaster} from 'react-hot-toast'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
 
   return (
     <div>
+      <Toaster />
       <Routes>
          <Route path="/" element={<Home />} />
          <Route path='/ai' element={<Layout />}>

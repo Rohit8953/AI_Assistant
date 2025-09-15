@@ -8,7 +8,7 @@ import Footer from '../components/Home/Footer.jsx'
 
 const Home = () => {
   return (
-    <div>
+    <div className='w-full h-full'>
       <Navbar />
       <Hero />
       <AiTools />

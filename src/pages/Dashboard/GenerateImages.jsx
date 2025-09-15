@@ -1,5 +1,8 @@
+import { useAuth } from "@clerk/clerk-react";
 import { Edit, Hash } from "lucide-react";
 import React from "react";
+import { generateImage } from "../../Redux/apiSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const GenerateImages = () => {
   const blogCategories = [
@@ -16,9 +19,16 @@ const GenerateImages = () => {
   const [selectedStyle, setSelectedStyle] = React.useState(blogCategories[0]);
   const [input, setInput] = React.useState("");
   const [enabled, setEnabled] = React.useState(false);
+  const {getToken} = useAuth();
+  const dispatch = useDispatch();
+  const {isImageGenerating, image} = useSelector(state=>state.api);
+
+  console.log("see the input:", image);
   
-  const onSubmitHandler = (e) => {
+  const onSubmitHandler = async(e) => {
     e.preventDefault();
+    const token = await getToken();
+   dispatch(generateImage({input, selectedStyle, publish: enabled, token}));
   };
 
   return (
@@ -26,7 +36,7 @@ const GenerateImages = () => {
       {/* Left col */}
       <form
         onSubmit={onSubmitHandler}
-        className="w-full  max-w-lg p-4 bg-white rounded-lg border border-gray-200"
+        className="w-full text-start max-w-lg p-4 bg-white rounded-lg border border-gray-200"
       >
         <div className="flex items-center gap-3">
           {/* Replace with your Sparkles icon if available */}
@@ -84,9 +94,16 @@ const GenerateImages = () => {
           type="submit"
           className="mt-4 bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition w-full flex items-center justify-center"
         >
-          {" "}
-          <Edit className="w-5" />
-          Generate Image
+          {
+            isImageGenerating ? (
+              'Loading...'
+            ):(
+              <>
+                <Edit className="w-5" />
+                 Generate Image
+              </>
+            )
+          }
         </button>
       </form>
 
@@ -96,13 +113,21 @@ const GenerateImages = () => {
           <Edit className="w-5 h-5 text-[#4A7AFF]" />
           <h1 className="text-xl font-semibold">Generated Image</h1>
         </div>
-        <div className=" flex justify-center items-center">
-          <div className="text-sm flex flex-col items-center gap-5 text-gray-400">
-            <Hash className="w-9 h-9" />
-            Full screen (f)
-            <p>Enter a topic and click "Generate image" to get started</p>
-          </div>
-        </div>
+        {
+          isImageGenerating ? (
+            <div className=" flex justify-center items-center">
+              <div className="text-sm flex flex-col items-center gap-5 text-gray-400">
+                <Hash className="w-9 h-9" />
+                Full screen (f)
+                <p>Enter a topic and click "Generate image" to get started</p>
+              </div>
+            </div>
+          ):(
+            <div className=' mt-3 h-full w-full'>
+                  <img src={image} loading="lazy" alt="image" className="h-full w-full object-contain" />
+              </div>
+          )
+        }
       </div>
     </div>
   );

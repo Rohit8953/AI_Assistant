@@ -1,5 +1,9 @@
 import { Edit, Eraser, Scissors } from 'lucide-react';
 import React from 'react';
+import toast from 'react-hot-toast';
+import { useDispatch, useSelector } from 'react-redux';
+import { removeObject } from '../../Redux/apiSlice';
+import { useAuth } from '@clerk/clerk-react';
 
 const RemoveObject = () => {
 
@@ -10,9 +14,25 @@ const RemoveObject = () => {
  const [selectedCategory, setSelectedCategory] = React.useState(blogCategories[0]);
  const [input, setInput] = React.useState('');
  const [object, setObject] = React.useState('');
+ const dispatch = useDispatch();
+ const {getToken} = useAuth();
+ const {isObjectRemoving, updatedImage} = useSelector(state=>state.api);
+ console.log("updatedImage:", updatedImage);
 
- const onSubmitHandler = (e) => {
+ const onSubmitHandler = async(e) => {
   e.preventDefault(); 
+
+  if (object.split(' ').length > 1) {
+    return toast('Please enter only one object name')
+  }
+
+  const formData = new FormData();
+  formData.append('image', input);
+  formData.append('object', object);
+
+  const token = await getToken();
+  dispatch(removeObject({formData, token}));
+
  }
   return (
     <div className='h-full overflow-y-scroll p-6 flex items-start gap-4 text-slate-700'>
@@ -42,7 +62,16 @@ const RemoveObject = () => {
           required
         />
         
-        <button type="submit" className='mt-4 bg-gradient-to-r from-yellow-400 to-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600 transition w-full flex items-center justify-center'> <Scissors className="w-5" />Remove Object</button>
+        <button type="submit" disabled={isObjectRemoving} className='mt-4 bg-gradient-to-r from-yellow-400 to-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600 transition w-full flex items-center justify-center'> 
+          { isObjectRemoving ? 
+          'Loading...': 
+          (
+            <>
+             <Scissors className="w-5" />Remove Object
+            </>
+          )
+          }
+        </button>
       </form>
  
       {/* Right col */}

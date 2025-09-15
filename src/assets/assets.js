@@ -65,6 +65,13 @@ export const AiToolsData = [
     }
 ]
 
+//  {
+//             image: 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?q=80&w=200',
+//             name: 'Briar Martin',
+//             handle: '@neilstellar',
+//             date: 'April 20, 2025'
+//         },
+
 export const dummyTestimonialData = [
     {
         image: assets.profile_img_1,
@@ -72,6 +79,8 @@ export const dummyTestimonialData = [
         title: 'Marketing Director, TechCorp',
         content: 'ContentAI has revolutionized our content workflow. The quality of the articles is outstanding, and it saves us hours of work every week.',
         rating: 4,
+        date: 'April 20, 2025',
+        handle: '@neilstellar'
     },
     {
         image: assets.profile_img_1,
@@ -79,6 +88,8 @@ export const dummyTestimonialData = [
         title: 'Content Creator, TechCorp',
         content: 'ContentAI has made our content creation process effortless. The AI tools have helped us produce high-quality content faster than ever before.',
         rating: 5,
+        date: 'May 10, 2023',
+        handle: '@johnsmith'
     },
     {
         image: assets.profile_img_1,
@@ -86,6 +97,8 @@ export const dummyTestimonialData = [
         title: 'Content Writer, TechCorp',
         content: 'ContentAI has transformed our content creation process. The AI tools have helped us produce high-quality content faster than ever before.',
         rating: 4,
+        date: 'December 06, 2022',
+        handle: '@devidlee'
     },
 ]
 

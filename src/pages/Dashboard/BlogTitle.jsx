@@ -1,5 +1,9 @@
 import React from 'react'
 import { Edit, Hash } from 'lucide-react';
+import { createBlogTitle } from '../../Redux/apiSlice';
+import { useAuth } from '@clerk/clerk-react';
+import { useDispatch, useSelector } from 'react-redux';
+import Markdown from 'react-markdown';
 
 const BlogTitle = () => {
 
@@ -9,18 +13,25 @@ const BlogTitle = () => {
 
  const [selectedCategory, setSelectedCategory] = React.useState(blogCategories[0]);
  const [input, setInput] = React.useState('');
+ const {getToken} = useAuth();
+ const dispatch = useDispatch();
+ const {isBlogTitleLoading, blogTitle} = useSelector(state=>state.api);
+ console.log("blogTitle:",blogTitle);
 
- const onSubmitHandler = (e) => {
+ const onSubmitHandler = async(e) => {
   e.preventDefault(); 
+  const token = await getToken();
+  dispatch(createBlogTitle({input, selectedCategory, token}));
  }
+
   return (
     <div className='h-full overflow-y-scroll p-6 flex items-start gap-4 text-slate-700'>
       {/* Left col */}
-      <form onSubmit={onSubmitHandler} className='w-full  max-w-lg p-4 bg-white rounded-lg border border-gray-200'>
+      <form onSubmit={onSubmitHandler} className='w-full text-start max-w-lg p-4 bg-white rounded-lg border border-gray-200'>
         <div className='flex items-center gap-3'>
           {/* Replace with your Sparkles icon if available */}
           <span className='w-6 text-[#4A7AFF]'>✨</span>
-          <h1 className='text-xl font-semibold'>AI Title Generator</h1>
+          <h1 className='text-xl font-semibold'>AI Blog Title Generator</h1>
         </div>
         <p className='mt-6 text-sm font-medium'>Article Topic</p>
         <input
@@ -41,7 +52,13 @@ const BlogTitle = () => {
           ))}
         </div>
         <br />
-        <button type="submit" className='mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition w-full flex items-center justify-center'> <Edit className="w-5" />Generate Title</button>
+        <button type="submit" className='mt-4 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition w-full flex items-center justify-center'> 
+         {
+          isBlogTitleLoading ? ('loading...'):(
+            <><Edit className="w-5" />Generate Title</> 
+          )
+         } 
+        </button>
       </form>
  
       {/* Right col */}
@@ -50,13 +67,25 @@ const BlogTitle = () => {
           <Edit className='w-5 h-5 text-[#4A7AFF]' />
           <h1 className='text-xl font-semibold' >Generated title</h1>
         </div>
-        <div className=' flex justify-center items-center'>
-          <div className='text-sm flex flex-col items-center gap-5 text-gray-400'>
-            <Hash className='w-9 h-9' />
-            Full screen (f)
-            <p>Enter a topic and click "Generate title" to get started</p>
-          </div>
-        </div>
+        {
+          isBlogTitleLoading ? (
+            <div className=' flex justify-center items-center'>
+              <div className='text-sm flex flex-col items-center gap-5 text-gray-400'>
+                <Hash className='w-9 h-9' />
+                Full screen (f)
+                <p>Enter a topic and click "Generate title" to get started</p>
+              </div>
+            </div>
+          ):(
+           <div className='text-start mt-3 h-full overflow-y-scroll text-sm text-slate-600'>
+             <div className='reset-tw'>
+               <Markdown>
+                {blogTitle}
+               </Markdown>
+             </div>
+           </div>
+          )
+        }
       </div>
     </div>
   )
