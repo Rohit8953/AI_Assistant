@@ -14,9 +14,9 @@ export const createArticle = createAsyncThunk("api/generate-article", async (dat
             }
         );
         if (response?.data?.success) {
-            toast.success('Article created successfully!');
+            toast.success(response?.data?.message || 'Article created successfully!');
         }else {
-            toast.error('Error in article creation!');
+            toast.error(response?.data?.message || 'Error in article creation!');
         }
         return response?.data?.content;
     } catch (error) {
@@ -38,9 +38,9 @@ export const createBlogTitle = createAsyncThunk("api/generate-blog-title", async
             }
         );
         if (response?.data?.success) {
-            toast.success('Document generated successfully!');
+            toast.success(response?.data?.message || 'Document generated successfully!');
         }else {
-            toast.error('Document generated successfully!');
+            toast.error(response?.data?.message || 'Error in image generation!');
         }
         return response?.data?.content;
     } catch (error) {
@@ -62,9 +62,9 @@ export const generateImage = createAsyncThunk("api/generate-image", async (data,
             }
         );
         if (response?.data?.success) {
-            toast.success('Image generated successfully!');
+            toast.success(response?.data?.message || 'Image generated successfully!');
         }else {
-            toast.error('Error in image generation!');
+            toast.error(response?.data?.message || 'Error in image generation!');
         }
         return response?.data?.content;
     } catch (error) {
@@ -87,9 +87,9 @@ export const removeObject = createAsyncThunk("api/remove-object-from-image", asy
             }
         );
         if (response?.data?.success) {
-            toast.success('Image generated successfully!');
+            toast.success(response?.data?.message || 'Object removed successfully!');
         }else {
-            toast.error('Error in image generation!');
+            toast.error(response?.data?.message || 'Error in image generation!');
         }
         return response?.data?.content;
     } catch (error) {
@@ -112,7 +112,7 @@ export const reviewResume = createAsyncThunk("api/resume-review", async ({formDa
             }
         );
         if (response?.data?.success) {
-            toast.success(response?.data?.message || 'Image generated successfully!');
+            toast.success(response?.data?.message || 'Resume reviewed successfully!');
         }else {
             toast.error(response?.data?.message || 'Error in image generation!');
         }
@@ -135,7 +135,7 @@ export const community = createAsyncThunk("api/get-published-creations", async (
             }
         );
         if (response?.data?.success) {
-            toast.success(response?.data?.message || 'Image generated successfully!');
+            toast.success(response?.data?.message || 'published images loaded successfully!');
         }else {
             toast.error(response?.data?.message || 'Error in image generation!');
         }
@@ -160,7 +160,7 @@ export const likeDislike = createAsyncThunk("api/toggle-like-creation", async ({
         );
         if (response?.data?.success) {
              dispatch(community({ token }));
-            toast.success(response?.data?.message || 'Image generated successfully!');
+            toast.success(response?.data?.message || 'Action performed!');
         }else {
             toast.error(response?.data?.message || 'Error in image generation!');
         }
@@ -183,11 +183,35 @@ export const getUsersCreation = createAsyncThunk("api/get-user-creations", async
             }
         );
         if (response?.data?.success) {
-            toast.success(response?.data?.message || 'Image generated successfully!');
+            toast.success(response?.data?.message || 'user creations loaded successfully!');
         }else {
             toast.error(response?.data?.message || 'Error in image generation!');
         }
         return response?.data?.creations;
+    } catch (error) {
+        console.log("Error", error);
+        toast.error(
+        error?.response?.data?.message || error?.message || 'An error occurred',
+      );
+      return rejectWithValue(error.response?.data || error.message);
+    }
+}
+);
+
+export const getAllCategoryCount = createAsyncThunk("api/get-category-count", async ({token}, {rejectWithValue}) => {
+    try {
+        const response = await axios.get("/api/user/get-category-count",
+            {
+                headers:{Authorization: `Bearer ${token}`}
+            }
+        );
+        if (response?.data?.success) {
+            toast.success(response?.data?.message || 'Count calculated successfully!');
+        }else {
+            toast.error(response?.data?.message || 'Error in image generation!');
+        }
+        console.log("count::", response);
+        return response?.data?.counts;
     } catch (error) {
         console.log("Error", error);
         toast.error(
@@ -216,12 +240,10 @@ const apiSlice = createSlice({
          isLikeDisliking: false,
          userCreations: null,
          isLoadingAllCreations: false,
+         isCountLoading: false,
+         counts: null,
     },
-    reducers: {
-        getProfileDetails : (action, state)=>{
-            
-        }
-    },
+    reducers: {},
     extraReducers : (builder) => {
         // Article
         builder
@@ -319,6 +341,19 @@ const apiSlice = createSlice({
             })
             .addCase(getUsersCreation.rejected, (state)=>{
                 state.isLoadingAllCreations=false;
+            })
+        
+        // Get all creations
+        builder
+            .addCase(getAllCategoryCount.pending, (state)=>{
+                state.isCountLoading=true;
+            })
+            .addCase(getAllCategoryCount.fulfilled, (state, action)=>{
+                state.counts=action.payload;
+                state.isCountLoading=false;
+            })
+            .addCase(getAllCategoryCount.rejected, (state)=>{
+                state.isCountLoading=false;
             })
     }
 }

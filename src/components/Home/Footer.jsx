@@ -18,7 +18,7 @@ const Footer = () => {
     ];
 
     return (
-        <div className="max-w-2x1 mx-auto z-20 mt-30">
+        <div className="max-w-2x1 px-4 sm:px-20 xl:px-32 mx-auto z-20 mt-30">
             <div className="flex flex-col md:flex-row items-start justify-between gap-10 py-10 border-b border-gray-500/30 text-gray-500">
                 <div>
                     <img className="w-28" src={flexAi} alt="dummyLogoColored" />
@@ -31,7 +31,7 @@ const Footer = () => {
                             <ul className="text-sm space-y-1">
                                 {section.links.map((link, i) => (
                                     <li key={i}>
-                                        <a href="#" className="hover:underline transition">{link}</a>
+                                        <a href="/" className="hover:underline transition">{link}</a>
                                     </li>
                                 ))}
                             </ul>

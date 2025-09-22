@@ -32,11 +32,11 @@ const GenerateImages = () => {
   };
 
   return (
-    <div className="h-full overflow-y-scroll p-6 flex items-start gap-4 text-slate-700">
+    <div className="h-full grid grid-cols-2 overflow-y-scroll p-6 items-start gap-4 text-slate-700">
       {/* Left col */}
       <form
         onSubmit={onSubmitHandler}
-        className="w-full text-start max-w-lg p-4 bg-white rounded-lg border border-gray-200"
+        className="w-full text-start min-h-96 max-h-[600px] p-4 bg-white rounded-lg border  border-gray-200"
       >
         <div className="flex items-center gap-3">
           {/* Replace with your Sparkles icon if available */}
@@ -49,11 +49,11 @@ const GenerateImages = () => {
           onChange={(e) => setInput(e.target.value)}
           className="w-full p-2 rounded-md border border-gray-300"
           placeholder="Describe the image you want to generate..."
-          rows={4}
+          rows={1}
           required
         />
         {/* Add more form fields as needed */}
-        <p className="mt-4 text-sm font-medium">Blog Categories</p>
+        <p className="mt-4 flex flex-wrap gap-2 text-sm font-medium">Blog Categories</p>
         <div>
           {blogCategories.map((item, index) => (
             <span
@@ -108,7 +108,7 @@ const GenerateImages = () => {
       </form>
 
       {/* Right col */}
-      <div className="w-full max-w-lg p-4 bg-white rounded-lg flex flex-col border border-gray-200 min-h-96 max-h-[600px]">
+      <div className="w-full p-4 bg-white rounded-lg flex flex-col border border-gray-200 min-h-96 max-h-[600px]">
         <div className="flex items-center gap-3">
           <Edit className="w-5 h-5 text-[#4A7AFF]" />
           <h1 className="text-xl font-semibold">Generated Image</h1>
@@ -129,6 +129,7 @@ const GenerateImages = () => {
           )
         }
       </div>
+
     </div>
   );
 };

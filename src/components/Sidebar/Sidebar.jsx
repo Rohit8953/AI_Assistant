@@ -8,10 +8,10 @@ const navItems = [
   { to: "/ai/write-article", label: "Write Article", Icon: SquarePen },
   { to: "/ai/blog-titles", label: "Blog Titles", Icon: Hash },
   { to: "/ai/generate-images", label: "Generate Images", Icon: Image },
+  { to: "/ai/review-resume", label: "Review Resume", Icon: FileText },
   { to: "/ai/remove-background", label: "Remove Background", Icon: Eraser },
   { to: "/ai/remove-object", label: "Remove Object", Icon: Scissors },
-  { to: "/ai/review-resume", label: "Review Resume", Icon: FileText },
-  { to: "/ai/community", label: "Community", Icon: Users },
+  { to: "/ai/community", label: "Community", Icon: Users }
 ];
 
 const Sidebar = ({sidebar, setSidebar}) => {
@@ -65,4 +65,3 @@ justify-between items-center max-sm:absolute top-14 bottom-2 ${
 };
 
 export default Sidebar;
-

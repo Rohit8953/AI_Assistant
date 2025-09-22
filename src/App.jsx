@@ -14,7 +14,6 @@ import Community from './pages/Dashboard/Community.jsx'
 import {Toaster} from 'react-hot-toast'
 
 function App() {
-  const [count, setCount] = useState(0);
 
   return (
     <div>
