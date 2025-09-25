@@ -5,6 +5,7 @@ import Testimonial from '../components/Home/Testimonial.jsx'
 import AiTools from '../components/Home/AiTools.jsx'
 import Plan from '../components/Home/Plan.jsx'
 import Footer from '../components/Home/Footer.jsx'
+import VoiceToText from '../components/VoiceToText.jsx'
 
 const Home = () => {
   return (

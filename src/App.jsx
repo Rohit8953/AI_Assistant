@@ -17,11 +17,11 @@ function App() {
 
   return (
     <div>
-      <Toaster />
+      <Toaster /> 
       <Routes>
          <Route path="/" element={<Home />} />
          <Route path='/ai' element={<Layout />}>
-            <Route index element={<Dashboard />} />
+            <Route path="dashboard" element={<Dashboard />} />
             <Route path="blog-titles" element={<BlogTitle />} />
             <Route path="write-article" element={<WriteArticle />} />
             <Route path="generate-images" element={<GenerateImages />} />

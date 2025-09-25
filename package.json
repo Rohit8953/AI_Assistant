@@ -22,7 +22,10 @@
     "react-markdown": "^10.1.0",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.8.2",
-    "tailwindcss": "^4.1.13"
+    "react-speech-recognition": "^4.0.1",
+    "react-use-clipboard": "^1.0.9",
+    "tailwindcss": "^4.1.13",
+    "whisper-turbo": "^0.11.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.33.0",

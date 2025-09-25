@@ -135,9 +135,9 @@ export const community = createAsyncThunk("api/get-published-creations", async (
             }
         );
         if (response?.data?.success) {
-            toast.success(response?.data?.message || 'published images loaded successfully!');
+            console.log(response?.data?.message || 'published images loaded successfully!');
         }else {
-            toast.error(response?.data?.message || 'Error in image generation!');
+            console.log(response?.data?.message || 'Error in image generation!');
         }
         return response?.data?.creations;
     } catch (error) {
@@ -183,9 +183,9 @@ export const getUsersCreation = createAsyncThunk("api/get-user-creations", async
             }
         );
         if (response?.data?.success) {
-            toast.success(response?.data?.message || 'user creations loaded successfully!');
+            console.log(response?.data?.message || 'user creations loaded successfully!');
         }else {
-            toast.error(response?.data?.message || 'Error in image generation!');
+            console.log(response?.data?.message || 'Error in image generation!');
         }
         return response?.data?.creations;
     } catch (error) {
@@ -206,14 +206,12 @@ export const getAllCategoryCount = createAsyncThunk("api/get-category-count", as
             }
         );
         if (response?.data?.success) {
-            toast.success(response?.data?.message || 'Count calculated successfully!');
+            console.log(response?.data?.message || 'Count calculated successfully!');
         }else {
-            toast.error(response?.data?.message || 'Error in image generation!');
+            console.log(response?.data?.message || 'Error in image generation!');
         }
-        console.log("count::", response);
         return response?.data?.counts;
     } catch (error) {
-        console.log("Error", error);
         toast.error(
         error?.response?.data?.message || error?.message || 'An error occurred',
       );
