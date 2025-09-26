@@ -32,14 +32,14 @@ const AiTools = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 px-4 sm:px-20 xl:px-32 max-w-7xl mx-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-4 sm:px-20 xl:px-32 max-w-7xl mx-auto">
         {AiToolsData.map((tool, index) => (
           <div
             key={index}
             className="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl 
               border border-gray-100 hover:border-transparent transition-all duration-500 
               cursor-pointer transform hover:-translate-y-2 backdrop-blur-sm
-              overflow-hidden"
+              overflow-hidden "
             onClick={() => user && navigate(tool.path)}
           >
             {/* Gradient Border Effect */}

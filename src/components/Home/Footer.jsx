@@ -77,19 +77,17 @@ const Footer = () => {
                     {/* Brand Section */}
                     <div className="space-y-6">
                         <div className="flex items-center gap-3">
-                            <img className="w-10 h-10" src={flexAi} alt="FlexAI Logo" />
-                            <span className="text-2xl font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
-                                FlexAI
-                            </span>
+                            <img className=" h-10" src={flexAi} alt="FlexAI Logo" />
+                           
                         </div>
-                        <p className="text-gray-300 text-lg max-w-md leading-relaxed">
+                        <p className="text-gray-300 text-lg max-w-md text-start leading-relaxed">
                             Transform your content creation with cutting-edge AI tools. 
                             Generate, enhance, and optimize your workflow with our intelligent platform.
                         </p>
                         
                         {/* Newsletter Signup */}
                         <div className="space-y-4">
-                            <h4 className="font-semibold text-white">Stay Updated</h4>
+                            <h4 className="font-semibold text-start text-white">Stay Updated</h4>
                             <div className="flex flex-col sm:flex-row gap-3 max-w-md">
                                 <input 
                                     type="email" 
@@ -104,9 +102,9 @@ const Footer = () => {
                     </div>
 
                     {/* Links Grid */}
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-8 ">
                         {linkSections.map((section, index) => (
-                            <div key={index} className="space-y-4">
+                            <div key={index} className="space-y-4 text-start">
                                 <h4 className="font-semibold text-white text-lg">{section.title}</h4>
                                 <ul className="space-y-3">
                                     {section.links.map((link, i) => (

@@ -53,8 +53,8 @@ const Plan = () => {
               onClick={() => setBillingPeriod('yearly')}
             >
               Yearly Billing
-              <span className="ml-2 bg-gradient-to-r from-yellow-400 to-orange-400 text-white text-xs px-2 py-1 rounded-full">
-                Save 20%
+              <span className="ml-2 text-xs bg-gradient-to-r from-yellow-400 to-orange-400 text-white px-2 py-1 rounded-full">
+                Coming Soon
               </span>
             </button>
           </div>

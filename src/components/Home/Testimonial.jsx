@@ -115,9 +115,9 @@ const Testimonial = () => {
             </div>
 
             {/* Marquee Sections */}
-            <div className="relative">
+            <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Top Marquee */}
-                <div className="marquee-row w-full overflow-hidden relative mb-8">
+                <div className="marquee-row w-full  overflow-hidden relative mb-8">
                     <div className="absolute left-0 top-0 h-full w-32 z-20 bg-gradient-to-r from-white to-transparent"></div>
                     <div className="marquee-inner flex transform-gpu min-w-[200%] py-8">
                         {[...dummyTestimonialData, ...dummyTestimonialData].map((card, index) => (

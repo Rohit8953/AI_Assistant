@@ -9,7 +9,8 @@ const Layout = () => {
   const [sidebar, setSidebar] = useState(false);
   const navigate = useNavigate();
   const { user } = useUser();
-
+  // const users = await clerk.users.getUserList();
+  console.log(user); 
   const handleSignOut = () => {
     // Add your sign out logic here
     console.log('Sign out clicked');
