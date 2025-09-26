@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Edit, Hash, Sparkles, Zap, Clock, Copy, CheckCircle, RotateCw } from 'lucide-react';
 import { createBlogTitle } from '../../Redux/apiSlice';
 import { useAuth } from '@clerk/clerk-react';
 import { useDispatch, useSelector } from 'react-redux';
 import Markdown from 'react-markdown';
 import CreationItem from '../../components/Dashboard/CreationItem';
+import VoiceToText from '../../components/VoiceToText';
 
 const BlogTitle = () => {
    const blogCategories = [
@@ -17,6 +18,7 @@ const BlogTitle = () => {
  const {getToken} = useAuth();
  const dispatch = useDispatch();
  const {isBlogTitleLoading, blogTitle, userCreations} = useSelector(state=>state.api);
+ const [isOpen, setIsOpen] = useState(false);
 
  const onSubmitHandler = async(e) => {
   e.preventDefault(); 
@@ -45,6 +47,36 @@ const BlogTitle = () => {
               <h1 className='text-2xl font-bold text-gray-900'>AI Blog Title Generator</h1>
               <p className='text-gray-600'>Generate catchy blog titles in seconds</p>
             </div>
+
+            <div className='flex-1 flex justify-end'>
+                {/* Voice Input Button */}
+                <button 
+                  onClick={() => setIsOpen(true)}
+                  className="flex items-center justify-center w-10 h-10 bg-purple-500 hover:bg-purple-600 text-white rounded-full shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-xl"
+                  title="Voice Input"
+                >
+                  <svg 
+                    className="w-5 h-5" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    viewBox="0 0 24 24"
+                  >
+                    <path 
+                      strokeLinecap="round" 
+                      strokeLinejoin="round" 
+                      strokeWidth={2} 
+                      d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 016 0v6a3 3 0 01-3 3z" 
+                    />
+                  </svg>
+              
+                </button>
+                
+                {
+                  isOpen && (
+                    <VoiceToText isOpen={isOpen} setIsOpen={setIsOpen} input={input} setInput={setInput} color={'purple'}/>
+                  )
+                }
+              </div>
           </div>
 
           {/* Form */}

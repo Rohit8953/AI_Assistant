@@ -1,4 +1,4 @@
-import { SignIn, useUser } from '@clerk/clerk-react';
+import { SignIn, useClerk, UserButton, useUser } from '@clerk/clerk-react';
 import React, { useState } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom';
 import Sidebar from '../components/Sidebar/Sidebar';
@@ -9,10 +9,11 @@ const Layout = () => {
   const [sidebar, setSidebar] = useState(false);
   const navigate = useNavigate();
   const { user } = useUser();
-  // const users = await clerk.users.getUserList();
-  console.log(user); 
+  const { signOut } = useClerk();
+
   const handleSignOut = () => {
     // Add your sign out logic here
+    signOut();
     console.log('Sign out clicked');
   };
 
@@ -66,20 +67,26 @@ const Layout = () => {
           <div className='flex items-start gap-3'>
             <div className='hidden sm:flex flex-col justify-center items-start'>
               <span className='text-sm text-start font-semibold text-gray-900'>{user.fullName || 'User'}</span>
-              <span className='text-xs text-gray-500'>{user.primaryEmailAddress?.emailAddress}</span>
+              <span className='text-xs text-gray-500'>{user?.primaryEmailAddress?.emailAddress}</span>
             </div>
-            
             {/* User Avatar Dropdown */}
             <div className='relative group'>
-              <div className='flex items-center gap-2 bg-white border border-gray-200 rounded-xl px-3 py-2 cursor-pointer hover:border-blue-300 transition-all duration-200'>
+              <dev className='flex items-center gap-2 bg-white border border-gray-200 rounded-xl px-3 py-2 cursor-pointer hover:border-blue-300 transition-all duration-200'>
                 <div className='w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center'>
-                  <User className='w-4 h-4 text-white' />
+                  <UserButton
+                appearance={{
+                  elements: {
+                    avatarBox: "w-8 h-8 border-2 border-white shadow-sm",
+                    userButtonTrigger: "focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded-full"
+                  }
+                }}
+              />
                 </div>
                 <span className='hidden lg:block text-sm font-medium text-gray-700'>Profile</span>
-              </div>
+              </dev>
               
               {/* Dropdown Menu */}
-              <div className='absolute right-0 top-full mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50'>
+              {/* <div className='absolute right-0 top-full mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50'>
                 <div className='p-2'>
                   <button className='w-full flex items-center gap-3 px-3 py-2 text-gray-600 hover:bg-gray-50 rounded-lg transition-colors duration-200'>
                     <User className='w-4 h-4' />
@@ -98,7 +105,7 @@ const Layout = () => {
                     <span>Sign Out</span>
                   </button>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
 
@@ -119,7 +126,7 @@ const Layout = () => {
       {/* Main Content Area */}
       <div className='flex-1 flex w-full h-[calc(100vh-80px)]'>
         {/* Sidebar */}
-        <Sidebar sidebar={sidebar} setSidebar={setSidebar} />
+        <Sidebar sidebar={sidebar} setSidebar={setSidebar} signOut={signOut} />
         
         {/* Overlay for mobile sidebar */}
         {sidebar && (

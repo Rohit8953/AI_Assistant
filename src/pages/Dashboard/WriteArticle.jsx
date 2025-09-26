@@ -5,6 +5,7 @@ import { createArticle } from '../../Redux/apiSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import Markdown from 'react-markdown';
 import CreationItem from '../../components/Dashboard/CreationItem';
+import VoiceToText from '../../components/VoiceToText';
 
 const WriteArticle = () => {
   const articleLengths = [
@@ -18,6 +19,7 @@ const WriteArticle = () => {
   const [copiedContent, setCopiedContent] = useState(null);
   const {getToken} = useAuth();
   const dispatch = useDispatch();
+  const [isOpen, setIsOpen] = useState(false);
 
   const {isArticleLoading, article, userCreations} = useSelector(state=>state.api);
 
@@ -51,6 +53,36 @@ const WriteArticle = () => {
             <div>
               <h1 className='text-2xl font-bold text-gray-900'>AI Article Writer</h1>
               <p className='text-gray-600'>Generate high-quality articles in seconds</p>
+            </div>
+
+            <div className='flex-1 flex justify-end'>
+              {/* Voice Input Button */}
+              <button 
+                onClick={() => setIsOpen(true)}
+                className="flex items-center justify-center w-10 h-10 bg-blue-500 hover:bg-blue-600 text-white rounded-full shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-xl"
+                title="Voice Input"
+              >
+                <svg 
+                  className="w-5 h-5" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path 
+                    strokeLinecap="round" 
+                    strokeLinejoin="round" 
+                    strokeWidth={2} 
+                    d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 016 0v6a3 3 0 01-3 3z" 
+                  />
+                </svg>
+            
+              </button>
+              
+              {
+                isOpen && (
+                  <VoiceToText isOpen={isOpen} setIsOpen={setIsOpen} input={input} setInput={setInput} color={'blue'}/>
+                )
+              }
             </div>
           </div>
 

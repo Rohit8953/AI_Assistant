@@ -15,7 +15,7 @@ const navItems = [
 ];
 
 
-const Sidebar = ({ sidebar, setSidebar }) => {
+const Sidebar = ({ sidebar, setSidebar, signOut }) => {
   const { user, openUserProfile } = useUser();
   
   // Get gradient colors based on type
@@ -70,15 +70,21 @@ const Sidebar = ({ sidebar, setSidebar }) => {
                 {user?.fullName}
               </h3>
               <div className="flex items-center gap-1 mt-1">
-                <Protect plan={'premium'} fallback={
-                  <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full">Free Plan</span>
-                }>
+                <Protect
+                  plan="premium"
+                  fallback={
+                    <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded-full">
+                      Free Plan
+                    </span>
+                  }
+                >
                   <span className="text-xs font-medium bg-gradient-to-r from-yellow-400 to-orange-400 text-white px-2 py-1 rounded-full flex items-center gap-1">
                     <Sparkles className="w-3 h-3" />
                     Premium
                   </span>
                 </Protect>
               </div>
+
             </div>
             <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-gray-600 group-hover:translate-x-0.5 transition-all" />
           </div>
@@ -168,13 +174,13 @@ const Sidebar = ({ sidebar, setSidebar }) => {
 
           {/* Sign Out Button */}
           <button 
-            onClick={SignedOut}
-            className="flex items-center gap-3 w-full px-3 py-3 rounded-xl text-sm font-medium text-red-600 hover:text-red-700 hover:bg-red-50/50 transition-all duration-200 group mt-1"
+            onClick={signOut}
+            className="flex items-center cursor-pointer gap-3 w-full px-3 py-3 rounded-xl text-sm font-medium text-red-600 hover:text-red-700 hover:bg-red-50/50 transition-all duration-200 group mt-1"
           >
             <div className="p-2 rounded-lg bg-red-100 text-red-600 group-hover:bg-red-200 group-hover:text-red-700 transition-all">
               <LogOut className="w-4 h-4" />
             </div>
-            <span className="flex-1 text-left">Sign Out</span>
+            <span  className="flex-1 text-left">Sign Out</span>
           </button>
 
           {/* Version Info */}
